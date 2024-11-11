@@ -86,6 +86,7 @@ function startGame() {
 }
 
 function resetGame() {
+    AudioBackground.currentTime = 0;
     gameOver = false;
     ship.x = shipX;
     ship.y = shipY;
