@@ -45,11 +45,17 @@ let gameOver = false;
 
 let lives = 3;
 
+let AudioBackground = new Audio('./sound/Mercury.ogg');
+let AudioGameOver = new Audio("./sound/GameOver.mp3");
+let AudioHit = new Audio("./sound/hit.ogg");
+
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
 }
 
 function startGame() {
+    AudioBackground.loop = true;
+    AudioBackground.play();
     const startMessage = document.getElementById("startMessage");
     if (startMessage) {
         startMessage.remove();
@@ -94,12 +100,13 @@ function resetGame() {
     alienArray = [];
     createAliens();
 }
+
 function update() {
     requestAnimationFrame(update);
 
     if (gameOver) {
         if(e.code == "KeyR"){
-        resetGame();
+            resetGame();
         }
     }
 
@@ -128,6 +135,8 @@ function update() {
             if (alien.y >= ship.y) { 
                 if (lives == 0){
                     gameOver = true;
+                    AudioBackground.pause(); 
+                    AudioGameOver.play();
                 }
 
                 else {
@@ -164,6 +173,7 @@ function update() {
                 alien.alive = false;
                 alienCount--;
                 score += 100;
+                AudioHit.play();
             }
         }
     }
