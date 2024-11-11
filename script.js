@@ -49,6 +49,9 @@ let AudioBackground = new Audio('./sound/Mercury.ogg');
 let AudioGameOver = new Audio("./sound/GameOver.mp3");
 let AudioHit = new Audio("./sound/hit.ogg");
 
+let lastShotTime = 0;
+const shootCooldown = 100;
+
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
 }
@@ -190,10 +193,10 @@ function update() {
         alienColumns = Math.min(alienColumns + 1, columns/2 -2);
         alienRows = Math.min(alienRows + 1, rows-4);  
         if (alienVelocityX > 0) {
-            alienVelocityX += 0.2;
+            alienVelocityX += 0.1;
         }
         else {
-            alienVelocityX -= 0.2; 
+            alienVelocityX -= 0.1; 
         }
         alienArray = [];
         bulletArray = [];
@@ -242,6 +245,7 @@ function createAliens() {
 }
 
 function shoot(e) {
+    const currentTime = Date.now();
     if (gameOver) {
         if(e.code == "KeyR"){
             resetGame();
@@ -249,14 +253,17 @@ function shoot(e) {
     }
 
     if (e.code == "Space") {
-        let bullet = {
-            x: ship.x + ship.width * 15 / 32,
-            y: ship.y,
-            width: tileSize / 8,
-            height: tileSize / 2,
-            used: false
-        };
-        bulletArray.push(bullet);
+        if(currentTime - lastShotTime >= shootCooldown){
+            let bullet = {
+                x: ship.x + ship.width * 15 / 32,
+                y: ship.y,
+                width: tileSize / 8,
+                height: tileSize / 2,
+                used: false
+            };
+            bulletArray.push(bullet);
+            lastShotTime = currentTime;
+        }
     }
 }
 
