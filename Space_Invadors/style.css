@@ -1,0 +1,12 @@
+body
+{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+#board
+{
+    background-color: black;
+    height: 512px;
+    width: 512px;
+}
