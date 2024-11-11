@@ -202,11 +202,11 @@ function update() {
 
     context.fillStyle="white";
     context.font="16px courier";
-    context.fillText("SCORE: " + score, 5, 20);
+    context.fillText("PUNKTY: " + score, 5, 20);
 
     context.fillStyle="white";
     context.font="16px courier";
-    context.fillText("LIVES: " + lives, 420, 20);
+    context.fillText("ŻYCIA: " + lives, 420, 20);
 }
 
 function moveShip(e) {
