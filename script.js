@@ -66,13 +66,13 @@ function startGame() {
     context = board.getContext("2d"); 
 
     shipImg = new Image();
-    shipImg.src = "./ship.png";
+    shipImg.src = "./graphics/ship.png";
     shipImg.onload = function() {
         context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
     }
 
     alienImg = new Image();
-    alienImg.src = "./alien.png";
+    alienImg.src = "./graphics/alien.png";
     createAliens();
 
     requestAnimationFrame(update);
