@@ -41,7 +41,7 @@ let bulletArray = [];
 let bulletVelocityY = -10; 
 
 let ChargedBulletArray = [];
-let ChargedBulletVelocityY = -5; 
+let ChargedBulletVelocityY = 0; 
 
 let score = 0;
 let gameOver = false;
