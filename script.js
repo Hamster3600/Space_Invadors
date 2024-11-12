@@ -56,7 +56,7 @@ let lastShotTime = 0;
 const shootCooldown = 20;
 
 let lastChargedShot = 0;
-const ChargedShotCooldwon = 10000;
+const ChargedShotCooldwon = 5000;
 
 let SpacePressed = true;
 
