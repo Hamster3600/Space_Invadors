@@ -51,6 +51,7 @@ let lives = 3;
 let AudioBackground = new Audio('./sound/Mercury.ogg');
 let AudioGameOver = new Audio("./sound/GameOver.mp3");
 let AudioHit = new Audio("./sound/hit.ogg");
+let AudioLaser = new Audio("./sound/LaserShot.mp3")
 
 let lastShotTime = 0;
 const shootCooldown = 20;
@@ -207,7 +208,7 @@ function update() {
                 alien.alive = false;
                 alienCount--;
                 score += 100;
-                AudioHit.play();
+                AudioLaser.play();
             }
         }
     }
