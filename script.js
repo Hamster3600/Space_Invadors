@@ -279,6 +279,7 @@ function createAliens() {
 }
 
 function shoot(e) {
+    shipImg.src = "./graphics/ship.png";
     const currentTime = Date.now();
     if (gameOver) {
         if(e.code == "KeyR"){
@@ -316,7 +317,8 @@ function ChargedShot(e){
                 y: ship.y - tileSize * 16,
                 width: tileSize / 3,
                 height: tileSize * 16,
-                used: false
+                used: false,
+                shipImg : shipImg.src = "./graphics/alien.png"
             };
             ChargedBulletArray.push(ChargedBullet);
             lastChargedShot = currentTime2;
