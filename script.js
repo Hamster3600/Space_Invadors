@@ -12,6 +12,7 @@ let shipWidth = tileSize*2;
 let shipHeight = tileSize;
 let shipX = tileSize * columns/2 - tileSize;
 let shipY = tileSize * rows - tileSize*2;
+let shipDirection = 0;
 
 let ship = {
     x : shipX,
@@ -21,7 +22,7 @@ let ship = {
 }
 
 let shipImg;
-let shipVelocityX = tileSize; 
+let shipVelocityX = tileSize * 0.1; 
 
 
 let alienArray = [];
@@ -89,6 +90,7 @@ function startGame() {
 
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveShip);
+    document.addEventListener("keyup", stopShip);
     document.addEventListener("keyup", shoot);
     document.addEventListener("keyup", function(e) {
         if (e.code == "KeyR") {
@@ -132,6 +134,13 @@ function update() {
     context.clearRect(0, 0, board.width, board.height);
 
     context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
+
+    if (shipDirection !== 0) {
+        let newShipX = ship.x + shipVelocityX * shipDirection;
+        if (newShipX >= 0 && newShipX + ship.width <= board.width) {
+            ship.x = newShipX;
+        }
+    }
 
     for (let i = 0; i < alienArray.length; i++) {
         let alien = alienArray[i];
@@ -255,11 +264,19 @@ function moveShip(e) {
             }
         }
 
-        if (e.code == "ArrowLeft" && ship.x - shipVelocityX >= 0) {
-            ship.x -= shipVelocityX; 
+        if (e.code == "ArrowLeft") {
+            shipDirection = -1;
         }
-        else if (e.code == "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
-            ship.x += shipVelocityX;
+        else if (e.code == "ArrowRight") {
+            shipDirection = 1;
+        }
+    }
+}
+
+function stopShip(e) {
+    if (gameOver == false) {
+        if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
+            shipDirection = 0;
         }
     }
 }
