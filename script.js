@@ -40,6 +40,9 @@ let alienVelocityX = 1;
 let bulletArray = [];
 let bulletVelocityY = -10; 
 
+let ChargedBulletArray = [];
+let ChargedBulletVelocityY = -5; 
+
 let score = 0;
 let gameOver = false;
 
@@ -51,6 +54,11 @@ let AudioHit = new Audio("./sound/hit.ogg");
 
 let lastShotTime = 0;
 const shootCooldown = 20;
+
+let lastChargedShot = 0;
+const ChargedShotCooldwon = 10000;
+
+let SpacePressed = true;
 
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
@@ -85,6 +93,7 @@ function startGame() {
         if (e.code == "KeyR") {
             resetGame();
         }
+    document.addEventListener("keydown", ChargedShot)
     });
 }
 
@@ -94,6 +103,7 @@ function resetGame() {
     ship.x = shipX;
     ship.y = shipY;
     bulletArray = [];
+    ChargedBulletArray = [];
     lives = 3;
     score = 0;
     alienColumns = 3;
@@ -102,6 +112,7 @@ function resetGame() {
     alienVelocityX = 1;
     alien = [];
     alienArray = [];
+    lastChargedShot = 0;
     createAliens();
 }
 
@@ -155,6 +166,7 @@ function update() {
                         }
                         alienArray = [];
                         bulletArray = [];
+                        ChargedBulletArray = [];
                         createAliens();
                     }
                 }
@@ -182,11 +194,32 @@ function update() {
         }
     }
 
+    for (let x = 0; x < ChargedBulletArray.length; x++) {
+        let ChargedBullets = ChargedBulletArray[x];
+        ChargedBullets.y += ChargedBulletVelocityY;
+        context.fillStyle="red";
+        context.fillRect(ChargedBullets.x, ChargedBullets.y, ChargedBullets.width, ChargedBullets.height);
+
+
+        for (let j = 0; j < alienArray.length; j++) {
+            let alien = alienArray[j];
+            if (!ChargedBullets.used && alien.alive && detectCollision(ChargedBullets, alien)) {
+                alien.alive = false;
+                alienCount--;
+                score += 100;
+                AudioHit.play();
+            }
+        }
+    }
+
  
     while (bulletArray.length > 0 && (bulletArray[0].used || bulletArray[0].y < 0)) {
         bulletArray.shift(); 
     }
 
+    while (ChargedBulletArray.length > 0 && (ChargedBulletArray[0].used || ChargedBulletArray[0].y < 0)) {
+        ChargedBulletArray.shift(); 
+    }
 
     if (alienCount == 0) {
         score += alienColumns * alienRows * 100;
@@ -200,6 +233,7 @@ function update() {
         }
         alienArray = [];
         bulletArray = [];
+        ChargedBulletArray = [];
         createAliens();
     }
 
@@ -265,6 +299,30 @@ function shoot(e) {
             lastShotTime = currentTime;
         }
     }
+}
+
+function ChargedShot(e){
+    const currentTime2 = Date.now();
+    if (gameOver) {
+        if(e.code == "KeyR"){
+            resetGame();
+        }
+    }
+
+    if (e.code == "KeyE") {
+        if(currentTime2 - lastChargedShot >= ChargedShotCooldwon){
+            let ChargedBullet = {
+                x: ship.x + ship.width * 27.5 / 64,
+                y: ship.y - tileSize * 16,
+                width: tileSize / 3,
+                height: tileSize * 16,
+                used: false
+            };
+            ChargedBulletArray.push(ChargedBullet);
+            lastChargedShot = currentTime2;
+        }
+    }
+
 }
 
 function detectCollision(a, b) {
