@@ -50,7 +50,7 @@ let AudioGameOver = new Audio("./sound/GameOver.mp3");
 let AudioHit = new Audio("./sound/hit.ogg");
 
 let lastShotTime = 0;
-const shootCooldown = 100;
+const shootCooldown = 20;
 
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
