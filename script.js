@@ -256,6 +256,14 @@ function update() {
     context.fillText("ŻYCIA: " + lives, 420, 20);
 }
 
+function stopShip(e) {
+    if (gameOver == false) {
+        if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
+            shipDirection = 0;
+        }
+    }
+}
+
 function moveShip(e) {
     if(gameOver == false){
         if (gameOver) {
@@ -269,14 +277,6 @@ function moveShip(e) {
         }
         else if (e.code == "ArrowRight") {
             shipDirection = 1;
-        }
-    }
-}
-
-function stopShip(e) {
-    if (gameOver == false) {
-        if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
-            shipDirection = 0;
         }
     }
 }
@@ -343,7 +343,7 @@ function ChargedShot(e){
                     width: tileSize / 3,
                     height: tileSize * 16,
                     used: false,
-                    shipImg : shipImg.src = "./graphics/alien.png"
+                    shipImg : shipImg.src = "./graphics/shipLaser.png"
                 };
                 ChargedBulletArray.push(ChargedBullet);
                 lastChargedShot = currentTime2;
