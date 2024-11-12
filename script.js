@@ -248,84 +248,91 @@ function update() {
 }
 
 function moveShip(e) {
-    if (gameOver) {
-        if(e.code == "KeyR"){
-            resetGame();
+    if(gameOver == false){
+        if (gameOver) {
+            if(e.code == "KeyR"){
+                resetGame();
+            }
         }
-    }
 
-    if (e.code == "ArrowLeft" && ship.x - shipVelocityX >= 0) {
-        ship.x -= shipVelocityX; 
-    }
-    else if (e.code == "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
-        ship.x += shipVelocityX;
+        if (e.code == "ArrowLeft" && ship.x - shipVelocityX >= 0) {
+            ship.x -= shipVelocityX; 
+        }
+        else if (e.code == "ArrowRight" && ship.x + shipVelocityX + ship.width <= board.width) {
+            ship.x += shipVelocityX;
+        }
     }
 }
 
 function createAliens() {
-    for (let c = 0; c < alienColumns; c++) {
-        for (let r = 0; r < alienRows; r++) {
-            let alien = {
-                img : alienImg,
-                x : alienX + c*alienWidth,
-                y : alienY + r*alienHeight,
-                width : alienWidth,
-                height : alienHeight,
-                alive : true
+    if(gameOver == false){
+        for (let c = 0; c < alienColumns; c++) {
+            for (let r = 0; r < alienRows; r++) {
+                let alien = {
+                    img : alienImg,
+                    x : alienX + c*alienWidth,
+                    y : alienY + r*alienHeight,
+                    width : alienWidth,
+                    height : alienHeight,
+                    alive : true
+                }
+                alienArray.push(alien);
             }
-            alienArray.push(alien);
         }
+        alienCount = alienArray.length;
     }
-    alienCount = alienArray.length;
 }
 
 function shoot(e) {
-    shipImg.src = "./graphics/ship.png";
-    const currentTime = Date.now();
-    if (gameOver) {
-        if(e.code == "KeyR"){
-            resetGame();
+    if(gameOver == false){
+        shipImg.src = "./graphics/ship.png";
+        const currentTime = Date.now();
+        if (gameOver) {
+            if(e.code == "KeyR"){
+                resetGame();
+            }
         }
-    }
 
-    if (e.code == "Space") {
-        if(currentTime - lastShotTime >= shootCooldown){
-            let bullet = {
-                x: ship.x + ship.width * 15 / 32,
-                y: ship.y,
-                width: tileSize / 8,
-                height: tileSize / 2,
-                used: false
-            };
-            bulletArray.push(bullet);
-            lastShotTime = currentTime;
+        if (e.code == "Space") {
+            if(currentTime - lastShotTime >= shootCooldown){
+                let bullet = {
+                    x: ship.x + ship.width * 15 / 32,
+                    y: ship.y,
+                    width: tileSize / 8,
+                    height: tileSize / 2,
+                    used: false
+                };
+                bulletArray.push(bullet);
+                lastShotTime = currentTime;
+            }
         }
     }
 }
 
 function ChargedShot(e){
-    const currentTime2 = Date.now();
-    if (gameOver) {
-        if(e.code == "KeyR"){
-            resetGame();
+    if(gameOver == false){
+        const currentTime2 = Date.now();
+        if (gameOver) {
+            if(e.code == "KeyR"){
+                resetGame();
+            }
+        }
+
+        if (e.code == "KeyE") {
+            if(currentTime2 - lastChargedShot >= ChargedShotCooldwon){
+                let ChargedBullet = {
+                    x: ship.x + ship.width * 27.5 / 64,
+                    y: ship.y - tileSize * 16,
+                    width: tileSize / 3,
+                    height: tileSize * 16,
+                    used: false,
+                    shipImg : shipImg.src = "./graphics/alien.png"
+                };
+                ChargedBulletArray.push(ChargedBullet);
+                lastChargedShot = currentTime2;
+            }
         }
     }
-
-    if (e.code == "KeyE") {
-        if(currentTime2 - lastChargedShot >= ChargedShotCooldwon){
-            let ChargedBullet = {
-                x: ship.x + ship.width * 27.5 / 64,
-                y: ship.y - tileSize * 16,
-                width: tileSize / 3,
-                height: tileSize * 16,
-                used: false,
-                shipImg : shipImg.src = "./graphics/alien.png"
-            };
-            ChargedBulletArray.push(ChargedBullet);
-            lastChargedShot = currentTime2;
-        }
-    }
-
 }
 
 function detectCollision(a, b) {
