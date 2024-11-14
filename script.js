@@ -335,7 +335,7 @@ function ChargedShot(e){
             }
         }
 
-        if (e.code == "KeyE") {
+        if (e.code == "KeyB") {
             if(currentTime2 - lastChargedShot >= ChargedShotCooldwon){
                 let ChargedBullet = {
                     x: ship.x + ship.width * 27.5 / 64,
