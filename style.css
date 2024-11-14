@@ -3,7 +3,13 @@ body
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
 }
-
+#naglowek
+{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
 #board
 {
     background-color: black;
