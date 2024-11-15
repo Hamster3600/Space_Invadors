@@ -7,6 +7,8 @@ let boardWidth = tileSize * columns;
 let boardHeight = tileSize * rows; 
 let context;
 
+let speed = 50;
+let position = 0;
 
 let shipWidth = tileSize*2;
 let shipHeight = tileSize;
@@ -67,6 +69,7 @@ window.onload = function() {
 }
 
 function startGame() {
+    setInterval(updateGame, 1000 / 60);
     AudioBackground.loop = true;
     AudioBackground.play();
     const startMessage = document.getElementById("startMessage");
@@ -98,6 +101,12 @@ function startGame() {
         }
     document.addEventListener("keydown", ChargedShot)
     });
+}
+
+function updateGame() {
+    let distance = speed / 60;
+    position += distance;
+    console.log("Current position:", position);
 }
 
 function resetGame() {
