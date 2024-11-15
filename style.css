@@ -1,18 +1,50 @@
-body
-{
+body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
 }
-#naglowek
-{
+
+.board-wrapper {
+    position: relative; 
+    display: inline-block; 
+}
+
+#board {
+    background-color: black;
+    height: 512px;
+    width: 512px;
+}
+
+.container {
+    position: absolute; 
+    top: 96%;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 15px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress-bar {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background-color: green;
+}
+
+#play-animation {
+    animation: progress-animation 5s forwards;
+}
+
+@keyframes progress-animation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+#naglowek {
     margin-bottom: 0px;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-}
-#board
-{
-    background-color: black;
-    height: 512px;
-    width: 512px;
 }

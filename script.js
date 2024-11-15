@@ -55,6 +55,7 @@ let AudioBackground = new Audio('./sound/Mercury.ogg');
 let AudioGameOver = new Audio("./sound/GameOver.mp3");
 let AudioHit = new Audio("./sound/hit.ogg");
 let AudioLaser = new Audio("./sound/LaserShot.mp3")
+let LaserReady = new Audio("./sound/LaserReady.mp3")
 
 let lastShotTime = 0;
 const shootCooldown = 20;
@@ -66,6 +67,9 @@ let SpacePressed = true;
 
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
+    const progressBar = document.querySelector('.progress-bar');
+    progressBar.style.width = '100%';
+    progressBar.removeAttribute('id');
 }
 
 function startGame() {
@@ -99,17 +103,18 @@ function startGame() {
         if (e.code == "KeyR") {
             resetGame();
         }
-    document.addEventListener("keydown", ChargedShot)
     });
+    document.addEventListener("keydown", ChargedShot)
+    
 }
 
 function updateGame() {
     let distance = speed / 60;
     position += distance;
-    console.log("Current position:", position);
 }
 
 function resetGame() {
+    playLaserBarAnimation();
     AudioBackground.currentTime = 0;
     gameOver = false;
     ship.x = shipX;
@@ -335,6 +340,16 @@ function shoot(e) {
     }
 }
 
+function playLaserBarAnimation() {
+    const progressBar = document.querySelector('.progress-bar');
+
+    progressBar.style.animation = 'none';
+    progressBar.offsetHeight; 
+    progressBar.style.animation = null;
+
+    progressBar.setAttribute('id', 'play-animation');
+}
+
 function ChargedShot(e){
     if(gameOver == false){
         const currentTime2 = Date.now();
@@ -346,6 +361,7 @@ function ChargedShot(e){
 
         if (e.code == "KeyB") {
             if(currentTime2 - lastChargedShot >= ChargedShotCooldwon){
+                playLaserBarAnimation();
                 let ChargedBullet = {
                     x: ship.x + ship.width * 27.5 / 64,
                     y: ship.y - tileSize * 16,
