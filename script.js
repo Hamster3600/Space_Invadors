@@ -111,6 +111,7 @@ function startGame() {
 function updateGame() {
     let distance = speed / 60;
     position += distance;
+    requestAnimationFrame(updateGame);
 }
 
 function resetGame() {
@@ -316,7 +317,6 @@ function createAliens() {
 
 function shoot(e) {
     if(gameOver == false){
-        shipImg.src = "./graphics/ship.png";
         const currentTime = Date.now();
         if (gameOver) {
             if(e.code == "KeyR"){
@@ -335,7 +335,16 @@ function shoot(e) {
                 };
                 bulletArray.push(bullet);
                 lastShotTime = currentTime;
-            }
+                if(lives =3){
+                shipImg.src = "./graphics/ship.png";
+                }
+                if(lives =3){
+                    shipImg.src = "./graphics/ship.png";
+                }
+                if(lives =3){
+                    shipImg.src = "./graphics/ship.png";
+                }
+        }
         }
     }
 }
