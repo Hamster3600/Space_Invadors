@@ -189,6 +189,12 @@ function update() {
                         else {
                             alienVelocityX += 0.2; 
                         }
+                        if(lives == 2){
+                            shipImg.src = "./graphics/ship2.png";
+                        }
+                        if(lives == 1){
+                            shipImg.src = "./graphics/ship3.png";
+                        }
                         alienArray = [];
                         bulletArray = [];
                         ChargedBulletArray = [];
@@ -335,14 +341,14 @@ function shoot(e) {
                 };
                 bulletArray.push(bullet);
                 lastShotTime = currentTime;
-                if(lives =3){
+                if(lives == 3){
                 shipImg.src = "./graphics/ship.png";
                 }
-                if(lives =3){
-                    shipImg.src = "./graphics/ship.png";
+                if(lives == 2){
+                    shipImg.src = "./graphics/ship2.png";
                 }
-                if(lives =3){
-                    shipImg.src = "./graphics/ship.png";
+                if(lives == 1){
+                    shipImg.src = "./graphics/ship3.png";
                 }
         }
         }
@@ -376,9 +382,17 @@ function ChargedShot(e){
                     y: ship.y - tileSize * 16,
                     width: tileSize / 3,
                     height: tileSize * 16,
-                    used: false,
-                    shipImg : shipImg.src = "./graphics/shipLaser.png"
+                    used: false
                 };
+                if(lives == 3){
+                    shipImg.src = "./graphics/shipLaser.png";
+                    }
+                    if(lives == 2){
+                        shipImg.src = "./graphics/shipLaser2.png";
+                    }
+                    if(lives == 1){
+                        shipImg.src = "./graphics/shipLaser3.png";
+                    }
                 ChargedBulletArray.push(ChargedBullet);
                 lastChargedShot = currentTime2;
             }
