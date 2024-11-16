@@ -25,12 +25,25 @@ body {
     border-radius: 10px;
     overflow: hidden;
 }
+
 .progress-bar {
     position: absolute;
     height: 100%;
     width: 100%;
     border-radius: 10px;
-    background-color: green;
+    background-color: rgb(0, 146, 66);
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 16px;
+    font-family: courier;
+    pointer-events: none;
+    letter-spacing: 1px;
 }
 
 #play-animation {
