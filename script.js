@@ -56,6 +56,7 @@ let AudioGameOver = new Audio("./sound/GameOver.mp3");
 let AudioHit = new Audio("./sound/hit.ogg");
 let AudioLaser = new Audio("./sound/LaserShot.mp3")
 let LaserReady = new Audio("./sound/LaserReady.mp3")
+let Damage = new Audio("./sound/damage.mp3")
 
 let lastShotTime = 0;
 const shootCooldown = 20;
@@ -181,6 +182,7 @@ function update() {
 
                 else {
                     lives -= 1;
+                    Damage.play();
 
                     if (lives == 2 || lives == 1) {
                         if (alienVelocityX > 0) {
