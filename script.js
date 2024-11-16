@@ -65,7 +65,6 @@ let lastChargedShot = 0;
 const ChargedShotCooldwon = 5000;
 
 const currentTime3 = Date.now();
-const progressBar = document.querySelector('.progress-bar');
 
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
@@ -358,12 +357,19 @@ function shoot(e) {
     }
 }
 
+function playAudio() {
+    LaserReady.play();
+}
+
 function playLaserBarAnimation() {
+    const progressBar = document.querySelector('.progress-bar');
+
     progressBar.style.animation = 'none';
     progressBar.offsetHeight; 
     progressBar.style.animation = null;
 
     progressBar.setAttribute('id', 'play-animation');
+    setTimeout(playAudio, 5000);
 }
 
 function ChargedShot(e){
