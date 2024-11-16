@@ -64,7 +64,8 @@ const shootCooldown = 20;
 let lastChargedShot = 0;
 const ChargedShotCooldwon = 5000;
 
-let SpacePressed = true;
+const currentTime3 = Date.now();
+const progressBar = document.querySelector('.progress-bar');
 
 window.onload = function() {
     document.addEventListener("keydown", startGame, { once: true });
@@ -358,8 +359,6 @@ function shoot(e) {
 }
 
 function playLaserBarAnimation() {
-    const progressBar = document.querySelector('.progress-bar');
-
     progressBar.style.animation = 'none';
     progressBar.offsetHeight; 
     progressBar.style.animation = null;
